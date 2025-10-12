@@ -1,80 +1,37 @@
 # ECom Spring Boot Application
 
-## Project Overview
-A sample e-commerce backend built with Java, Spring Boot, and Maven. It demonstrates layered architecture, DTO usage, and RESTful API design for user management.
+## Overview
+This is a Spring Boot based e-commerce application. It provides RESTful APIs for managing products and users, including CRUD operations and mapping between DTOs and entities.
 
-## Code Structure
-```
-com.example.ecom
-├── controller      # REST controllers (UserController)
-├── service         # Service interfaces and implementations
-├── repository      # Spring Data JPA repositories
-├── model           # Entity classes (User, Address, UserRole)
-├── dto             # Data Transfer Objects (UserRequest, UserResponse, AddressDTO)
-├── utility         # Utility classes (UserMapper)
-```
+## Features
+- Product management (create, update)
+- User management
+- DTO to entity mapping
+- Repository pattern
+- Service layer with @Transactional annotation for data integrity
 
-## Setup Instructions
-1. **Prerequisites:**
-   - Java 17+
-   - Maven 3.6+
+## Technologies Used
+- Java
+- Spring Boot
+- Spring Data JPA
+- Lombok
 
-2. **Clone the repository:**
-   ```sh
-   git clone <your-repo-url>
-   cd ecom
-   ```
+## Recent Updates
+- Added @Transactional annotation to service implementation classes for better transaction management.
+- Improved code comments for clarity and maintainability.
 
-3. **Build the project:**
-   ```sh
-   mvn clean install
-   ```
+## How to Run
+1. Ensure Java and Maven are installed.
+2. Run `mvnw.cmd spring-boot:run` from the project root.
 
-4. **Run the application:**
-   ```sh
-   mvn spring-boot:run
-   ```
-   The app will start on `http://localhost:8080` by default.
-
-## API Endpoints
-
-### User Management
-Base path: `/api/users`
-
-#### 1. Get All Users
-- **GET** `/api/users`
-- **Response:** `List<UserResponse>`
-
-#### 2. Get User by ID
-- **GET** `/api/users/{id}`
-- **Response:** `UserResponse` (404 if not found)
-
-#### 3. Add User
-- **POST** `/api/users`
-- **Request Body:** `UserRequest`
-- **Response:** `201 Created` (or appropriate response)
-
-#### 4. Update User
-- **PUT** `/api/users/{id}`
-- **Request Body:** `UserRequest`
-- **Response:** `200 OK` if updated, `404 Not Found` if user does not exist
-
-## DTOs
-- `UserRequest`: Used for creating/updating users
-- `UserResponse`: Used for returning user data
-- `AddressDTO`: Used for address data in requests/responses
-
-## Extending & Testing
-- Add more endpoints in `controller` as needed
-- Write tests in `src/test/java/com/example/ecom`
-- Use `UserMapper` in `utility` for DTO/entity conversions
+## Directory Structure
+- `src/main/java/com/example/ecom/` - Main source code
+- `src/test/java/com/example/ecom/` - Test cases
+- `README.md` - Project documentation
 
 ## Notes
-- Follows industry standards for Spring Boot applications
-- Uses Lombok for boilerplate reduction
-- All business logic is in the service layer
-- No direct entity exposure in API
+- Use the provided DTOs for API requests and responses.
+- Service methods are annotated with @Transactional for consistency.
 
----
-For questions or contributions, open an issue or pull request.
-
+## Contact
+For issues, please open a GitHub issue or contact the maintainer.
