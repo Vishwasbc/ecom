@@ -1,4 +1,15 @@
 package com.example.ecom.dto;
 
-// UserResponse removed: APIs now return the domain `com.example.ecom.model.User` directly.
-// This file retained as a placeholder to avoid accidental package deletion; it contains no types.
+import com.example.ecom.model.UserRole;
+import lombok.Data;
+
+@Data
+public class UserResponse {
+    private String id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phNo;
+    private UserRole userRole;
+    private AddressDTO address;
+}

@@ -3,15 +3,17 @@ package com.example.ecom.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.ecom.model.User;
+import com.example.ecom.dto.UserRequest;
+import com.example.ecom.dto.UserResponse;
+
 
 public interface UserService {
 
-    List<User> getAllUsers();
+    List<UserResponse> getAllUsers();
 
-    void addUser(User user);
+    void addUser(UserRequest userRequest);
 
-    Optional<User> getUser(Long id);
+    Optional<UserResponse> getUser(Long id);
 
-    boolean updateUser(Long id, User user);
+    boolean updateUser(Long id, UserRequest userRequest);
 }

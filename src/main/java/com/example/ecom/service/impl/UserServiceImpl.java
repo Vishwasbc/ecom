@@ -2,13 +2,18 @@ package com.example.ecom.service.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import com.example.ecom.dto.UserRequest;
+import com.example.ecom.dto.UserResponse;
+import com.example.ecom.utility.AddressMapper;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
-import com.example.ecom.model.User;
 import com.example.ecom.model.Address;
 import com.example.ecom.repository.UserRepository;
 import com.example.ecom.service.UserService;
+import com.example.ecom.utility.UserMapper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,43 +26,44 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserResponse> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(UserMapper::mapUserToUserResponse)
+                .collect(Collectors.toList());
+    }
+
+
+    @Override
+    @Transactional
+    public void addUser(UserRequest userRequest) {
+        userRepository.save(UserMapper.mapUserRequestToUser(userRequest));
     }
 
     @Override
-    public void addUser(User user) {
-        userRepository.save(user);
+    public Optional<UserResponse> getUser(Long id) {
+        return userRepository.findById(id).map(UserMapper::mapUserToUserResponse);
     }
 
     @Override
-    public Optional<User> getUser(Long id) {
-        return userRepository.findById(id);
-    }
-
-    @Override
-    public boolean updateUser(Long id, User user) {
+    @Transactional
+    public boolean updateUser(Long id, UserRequest userRequest) {
         return userRepository.findById(id).map(existingUser -> {
-            // Only update fields from request-like User object, keep unchanged fields
-            if (user.getFirstName() != null) existingUser.setFirstName(user.getFirstName());
-            if (user.getLastName() != null) existingUser.setLastName(user.getLastName());
-            if (user.getEmail() != null) existingUser.setEmail(user.getEmail());
-            if (user.getPhNo() != null) existingUser.setPhNo(user.getPhNo());
-            if (user.getUserRole() != null) existingUser.setUserRole(user.getUserRole());
-
-            Address incomingAddress = user.getAddress();
-            if (incomingAddress != null) {
-                if (existingUser.getAddress() == null) {
-                    existingUser.setAddress(incomingAddress);
-                } else {
-                    if (incomingAddress.getStreet() != null) existingUser.getAddress().setStreet(incomingAddress.getStreet());
-                    if (incomingAddress.getCity() != null) existingUser.getAddress().setCity(incomingAddress.getCity());
-                    if (incomingAddress.getState() != null) existingUser.getAddress().setState(incomingAddress.getState());
-                    if (incomingAddress.getCountry() != null) existingUser.getAddress().setCountry(incomingAddress.getCountry());
-                    if (incomingAddress.getZipCode() != null) existingUser.getAddress().setZipCode(incomingAddress.getZipCode());
-                }
+            existingUser.setFirstName(userRequest.getFirstName());
+            existingUser.setLastName(userRequest.getLastName());
+            existingUser.setEmail(userRequest.getEmail());
+            existingUser.setPhNo(userRequest.getPhNo());
+            Address address = existingUser.getAddress();
+            if (address == null) {
+                address = new Address();
+                existingUser.setAddress(AddressMapper.mapAddressDTOToAddress(userRequest.getAddress()));
             }
-
+            if (userRequest.getAddress() != null) {
+                address.setStreet(userRequest.getAddress().getStreet());
+                address.setCity(userRequest.getAddress().getCity());
+                address.setState(userRequest.getAddress().getState());
+                address.setCountry(userRequest.getAddress().getCountry());
+                address.setZipCode(userRequest.getAddress().getZipCode());
+            }
             userRepository.save(existingUser);
             return true;
         }).orElse(false);
