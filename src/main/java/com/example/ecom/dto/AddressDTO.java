@@ -1,12 +1,4 @@
 package com.example.ecom.dto;
 
-import lombok.Data;
-
-@Data
-public class AddressDTO {
-    private String street;
-    private String city;
-    private String state;
-    private String country;
-    private String zipCode;
-}
+// AddressDTO removed: APIs now use the domain `com.example.ecom.model.Address` directly.
+// This file retained as a placeholder to avoid accidental package deletion; it contains no types.

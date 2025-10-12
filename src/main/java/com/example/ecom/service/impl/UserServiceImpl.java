@@ -2,15 +2,11 @@ package com.example.ecom.service.impl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import com.example.ecom.utility.UserMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import com.example.ecom.dto.UserRequest;
-import com.example.ecom.dto.UserResponse;
 import com.example.ecom.model.User;
+import com.example.ecom.model.Address;
 import com.example.ecom.repository.UserRepository;
 import com.example.ecom.service.UserService;
 
@@ -25,41 +21,43 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public List<UserResponse> getAllUsers() {
-        return userRepository.findAll().stream().map(UserMapper::toUserResponse).collect(Collectors.toList());
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     @Override
-    public void addUser(@RequestBody UserRequest userRequest) {
-        User user = UserMapper.toUser(userRequest);
+    public void addUser(User user) {
         userRepository.save(user);
     }
 
     @Override
-    public Optional<UserResponse> getUser(Long id) {
-        return userRepository.findById(id).map(UserMapper::toUserResponse);
+    public Optional<User> getUser(Long id) {
+        return userRepository.findById(id);
     }
 
     @Override
-    public boolean updateUser(Long id, UserRequest userRequest) {
+    public boolean updateUser(Long id, User user) {
         return userRepository.findById(id).map(existingUser -> {
-            User updatedUser = UserMapper.toUser(userRequest);
-            // Only update fields from request, keep unchanged fields
-            existingUser.setFirstName(updatedUser.getFirstName());
-            existingUser.setLastName(updatedUser.getLastName());
-            existingUser.setEmail(updatedUser.getEmail());
-            existingUser.setPhNo(updatedUser.getPhNo());
-            if (updatedUser.getAddress() != null) {
+            // Only update fields from request-like User object, keep unchanged fields
+            if (user.getFirstName() != null) existingUser.setFirstName(user.getFirstName());
+            if (user.getLastName() != null) existingUser.setLastName(user.getLastName());
+            if (user.getEmail() != null) existingUser.setEmail(user.getEmail());
+            if (user.getPhNo() != null) existingUser.setPhNo(user.getPhNo());
+            if (user.getUserRole() != null) existingUser.setUserRole(user.getUserRole());
+
+            Address incomingAddress = user.getAddress();
+            if (incomingAddress != null) {
                 if (existingUser.getAddress() == null) {
-                    existingUser.setAddress(updatedUser.getAddress());
+                    existingUser.setAddress(incomingAddress);
                 } else {
-                    existingUser.getAddress().setStreet(updatedUser.getAddress().getStreet());
-                    existingUser.getAddress().setCity(updatedUser.getAddress().getCity());
-                    existingUser.getAddress().setState(updatedUser.getAddress().getState());
-                    existingUser.getAddress().setCountry(updatedUser.getAddress().getCountry());
-                    existingUser.getAddress().setZipCode(updatedUser.getAddress().getZipCode());
+                    if (incomingAddress.getStreet() != null) existingUser.getAddress().setStreet(incomingAddress.getStreet());
+                    if (incomingAddress.getCity() != null) existingUser.getAddress().setCity(incomingAddress.getCity());
+                    if (incomingAddress.getState() != null) existingUser.getAddress().setState(incomingAddress.getState());
+                    if (incomingAddress.getCountry() != null) existingUser.getAddress().setCountry(incomingAddress.getCountry());
+                    if (incomingAddress.getZipCode() != null) existingUser.getAddress().setZipCode(incomingAddress.getZipCode());
                 }
             }
+
             userRepository.save(existingUser);
             return true;
         }).orElse(false);
