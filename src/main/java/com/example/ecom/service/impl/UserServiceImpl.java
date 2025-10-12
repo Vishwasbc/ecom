@@ -4,16 +4,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.example.ecom.utility.UserMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.example.ecom.dto.AddressDTO;
 import com.example.ecom.dto.UserRequest;
 import com.example.ecom.dto.UserResponse;
 import com.example.ecom.model.User;
 import com.example.ecom.repository.UserRepository;
 import com.example.ecom.service.UserService;
-import com.example.ecom.utility.UserMapper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
