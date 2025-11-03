@@ -12,7 +12,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity(name = "products")
+@Entity
 @Data
 @NoArgsConstructor
 public class Product {
