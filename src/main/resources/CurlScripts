@@ -79,5 +79,21 @@ curl --location 'http://localhost:8080/api/products?keyword=Pro' \
 
 Cart API's
 
+Add to Cart
+curl --location 'http://localhost:8080/api/cart' \
+--header 'X-User-ID: 1' \
+--header 'Content-Type: application/json' \
+--data '{
+    "productId":"1",
+    "quantity":1
+}'
+
+Delete Product from Cart
+curl --location --request DELETE 'http://localhost:8080/api/cart/items/1' \
+--header 'X-User-ID: 1'
+
+Get Cart
+curl --location 'http://localhost:8080/api/cart' \
+--header 'X-User-ID: 1'
 
 
