@@ -96,4 +96,10 @@ Get Cart
 curl --location 'http://localhost:8080/api/cart' \
 --header 'X-User-ID: 1'
 
+Order API's
+
+Place Order
+curl --location --request POST 'http://localhost:8080/api/orders' \
+--header 'X-User-ID: 1'
+
 

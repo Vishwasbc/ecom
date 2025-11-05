@@ -11,4 +11,6 @@ public interface CartService {
     boolean deleteItemFromCart(String userId, Long productId);
 
     List<CartItem> getCart(String userId);
+
+    void clearCart(String userId);
 }
