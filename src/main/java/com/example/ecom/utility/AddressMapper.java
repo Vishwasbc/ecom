@@ -14,13 +14,13 @@ public class AddressMapper {
         return addressDTO;
     }
 
-    public static Address mapAddressDTOToAddress(AddressDTO address) {
-        Address addr = new Address();
-        addr.setStreet(address.getStreet());
-        addr.setCity(address.getCity());
-        addr.setState(address.getState());
-        addr.setCountry(address.getCountry());
-        addr.setZipCode(address.getZipCode());
-        return addr;
+    public static Address mapAddressDTOToAddress(AddressDTO addressDTO) {
+        Address addressObj = new Address();
+        addressObj.setStreet(addressDTO.getStreet());
+        addressObj.setCity(addressDTO.getCity());
+        addressObj.setState(addressDTO.getState());
+        addressObj.setCountry(addressDTO.getCountry());
+        addressObj.setZipCode(addressDTO.getZipCode());
+        return addressObj;
     }
 }
