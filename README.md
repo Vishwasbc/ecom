@@ -1,37 +1,29 @@
-# ECom Spring Boot Application
+# ECom Microservices Project
 
-## Overview
-This is a Spring Boot based e-commerce application. It provides RESTful APIs for managing products and users, including CRUD operations and mapping between DTOs and entities.
+**Overview**: Monolith converted into separate Spring Boot microservices (product, user, order). Each service uses an H2 database for local development.
 
-## Features
-- Product management (create, update)
-- User management
-- DTO to entity mapping
-- Repository pattern
-- Service layer with @Transactional annotation for data integrity
+**Services**
+- **product-service**: REST API for products; H2 datasource; default port 8081.
+- **user-service**: REST API for users and addresses; H2 datasource; default port 8082.
+- **order-service**: Holds orders and cart functionality; H2 datasource; default port 8083.
 
-## Technologies Used
-- Java
-- Spring Boot
-- Spring Data JPA
-- Lombok
+**Project Layout**
+- **Parent POM**: Maven multi-module root that aggregates the three services.
+- **Module structure**: Each service follows Controller / DTO / Model / Repository / Service / service.impl / utility package layout.
 
-## Recent Updates
-- Added @Transactional annotation to service implementation classes for better transaction management.
-- Improved code comments for clarity and maintainability.
+**What's Done**
+- **Split**: Code moved into `product-service`, `user-service`, and `order-service` modules.
+- **Order + Cart**: Cart implementation consolidated into `order-service` and reorganized into packages.
+- **H2 Configs**: Each service has an `application.yml` configured for H2 in-memory DB for easy local testing.
 
-## How to Run
-1. Ensure Java and Maven are installed.
-2. Run `mvnw.cmd spring-boot:run` from the project root.
+**Remaining / Next Steps**
+- **Inter-service communication**: Add Feign/WebClient to call product/user services from `order-service` (price lookup, user validation).
+- **Common module**: Optionally extract shared DTOs/entities into a `common` module to avoid duplication.
+- **Build & verify**: Run `mvn -DskipTests package` per module and fix compile issues if any.
 
-## Directory Structure
-- `src/main/java/com/example/ecom/` - Main source code
-- `src/test/java/com/example/ecom/` - Test cases
-- `README.md` - Project documentation
+**Quick Local Build**
+```powershell
+cd order-service
+mvn -DskipTests package
+```
 
-## Notes
-- Use the provided DTOs for API requests and responses.
-- Service methods are annotated with @Transactional for consistency.
-
-## Contact
-For issues, please open a GitHub issue or contact the maintainer.
