@@ -17,7 +17,7 @@ public class OrderMapper {
                 order.getOrderItems().stream()
                         .map(item -> new OrderItemDTO(
                                 item.getId(),
-                                item.getProduct().getId(),
+                                item.getProductId(),
                                 item.getQuantity(),
                                 item.getPrice(),
                                 item.getPrice().multiply(new BigDecimal(item.getQuantity()))

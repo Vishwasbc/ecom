@@ -20,7 +20,7 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<OrderResponse> createOrder(
-            @RequestHeader("X-User-ID") String userId) {
+            @RequestHeader("X-User-ID") Long userId) {
         log.info("Received request to create order for userId={}", userId);
 
         Optional<OrderResponse> order = orderService.createOrder(userId);

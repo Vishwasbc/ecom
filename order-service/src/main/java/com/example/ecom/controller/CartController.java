@@ -21,7 +21,7 @@ public class CartController {
 
     @PostMapping
     public ResponseEntity<String> addToCart(
-            @RequestHeader("X-User-ID") String userId,
+            @RequestHeader("X-User-ID") Long userId,
             @RequestBody CartItemRequest request) {
         log.info("Received request to add productId={} (qty={}) to cart for userId={}",
                 request.getProductId(), request.getQuantity(), userId);
@@ -36,9 +36,9 @@ public class CartController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @DeleteMapping("/items/{productId}")
-    public ResponseEntity<Void> removeFromCart(
-            @RequestHeader("X-User-ID") String userId,
+        @DeleteMapping("/items/{productId}")
+        public ResponseEntity<Void> removeFromCart(
+            @RequestHeader("X-User-ID") Long userId,
             @PathVariable Long productId) {
         log.info("Received request to remove productId={} from cart for userId={}", productId, userId);
 
@@ -54,7 +54,7 @@ public class CartController {
 
     @GetMapping
     public ResponseEntity<List<CartItem>> getCart(
-            @RequestHeader("X-User-ID") String userId) {
+            @RequestHeader("X-User-ID") Long userId) {
         log.info("Fetching cart for userId={}", userId);
         List<CartItem> cartItems = cartService.getCart(userId);
         log.debug("Cart for userId={} contains {} items", userId, cartItems.size());
