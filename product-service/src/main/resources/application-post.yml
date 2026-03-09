@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/product_db
+    username: postgres
+    password: vish@post
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop        # dev/test only; drops on shutdown
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect  # optional; Hibernate 6 can auto-detect
+        format_sql: true           # pretty multi-line SQL
+        highlight_sql: true        # ANSI colors in supported consoles/IDEs
+        use_sql_comments: true     # adds /* comments */ to SQL
+    show-sql: true
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG             # log SQL statements
+    org.hibernate.orm.jdbc.bind: TRACE   # log bind parameter values

@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/product_db?createDatabaseIfNotExist=true
+    username: root
+    password: Vishwas@123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+        highlight_sql: true
+        use_sql_comments: true
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG             # prints SQL
+    org.hibernate.orm.jdbc.bind: TRACE   # prints bind parameter values

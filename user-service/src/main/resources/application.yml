@@ -1,19 +1,11 @@
 spring:
   application:
     name: user-service
-  datasource:
-    url: jdbc:postgresql://localhost:5432/users
-    username: postgres
-    password: vish@post
   jpa:
-    database: postgresql
-    hibernate:
-      ddl-auto: create-drop
     show-sql: true
-    dialect: org.hibernate.dialect.PostgreSQLDialect
 
 server:
-  port: 8082
+  port: 8083
 
 management:
   endpoints:
