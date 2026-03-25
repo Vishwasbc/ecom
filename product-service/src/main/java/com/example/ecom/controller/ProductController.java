@@ -2,6 +2,7 @@ package com.example.ecom.controller;
 
 import com.example.ecom.dto.ProductRequest;
 import com.example.ecom.dto.ProductResponse;
+import com.example.ecom.model.Product;
 import com.example.ecom.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -68,5 +69,10 @@ public class ProductController {
         List<ProductResponse> results = productService.searchProducts(keyword);
         log.debug("Found {} products matching keyword='{}'", results.size(), keyword);
         return ResponseEntity.ok(results);
+    }
+
+    @GetMapping("/findById/{id}")
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable String id){
+        return ResponseEntity.ok(productService.getProductById(Long.valueOf(id)));
     }
 }

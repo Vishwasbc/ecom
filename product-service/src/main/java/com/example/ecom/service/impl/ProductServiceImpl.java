@@ -88,4 +88,12 @@ public class ProductServiceImpl implements ProductService {
         log.debug("Found {} products matching keyword='{}'", results.size(), keyword);
         return results;
     }
+
+    @Override
+    public ProductResponse getProductById(Long id) {
+        Product product = productRepository.findById(id).orElseThrow(()->{
+            throw new RuntimeException("Product with product id "+id +" not found");
+        });
+        return ProductMapper.mapProductToProductResponse(product);
+    }
 }
