@@ -72,7 +72,9 @@ public class ProductController {
     }
 
     @GetMapping("/findById/{id}")
-    public ResponseEntity<ProductResponse> getProductById(@PathVariable String id){
-        return ResponseEntity.ok(productService.getProductById(Long.valueOf(id)));
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id){
+        return productService.getProductById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(()->ResponseEntity.notFound().build());
     }
 }

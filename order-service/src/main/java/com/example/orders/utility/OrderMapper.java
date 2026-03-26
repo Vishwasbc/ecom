@@ -1,8 +1,8 @@
-package com.example.ecom.utility;
+package com.example.orders.utility;
 
-import com.example.ecom.dto.OrderItemDTO;
-import com.example.ecom.dto.OrderResponse;
-import com.example.ecom.model.Order;
+import com.example.orders.dto.OrderItemDTO;
+import com.example.orders.dto.OrderResponse;
+import com.example.orders.model.Order;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

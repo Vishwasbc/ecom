@@ -1,6 +1,6 @@
-package com.example.ecom.repository;
+package com.example.orders.repository;
 
-import com.example.ecom.model.CartItem;
+import com.example.orders.model.CartItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

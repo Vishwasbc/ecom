@@ -90,10 +90,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductResponse getProductById(Long id) {
-        Product product = productRepository.findById(id).orElseThrow(()->{
-            throw new RuntimeException("Product with product id "+id +" not found");
-        });
-        return ProductMapper.mapProductToProductResponse(product);
+    public Optional<ProductResponse> getProductById(Long id) {
+        return productRepository.findByIdAndActiveTrue(id)
+                .map(ProductMapper::mapProductToProductResponse);
     }
 }

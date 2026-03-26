@@ -1,11 +1,15 @@
-package com.example.ecom.service.impl;
+package com.example.orders.service.impl;
 
-import com.example.ecom.dto.OrderResponse;
-import com.example.ecom.model.*;
-import com.example.ecom.repository.OrderRepository;
-import com.example.ecom.service.CartService;
-import com.example.ecom.service.OrderService;
-import com.example.ecom.utility.OrderMapper;
+import com.example.orders.dto.OrderResponse;
+import com.example.orders.model.*;
+import com.example.orders.model.CartItem;
+import com.example.orders.model.Order;
+import com.example.orders.model.OrderItem;
+import com.example.orders.model.OrderStatus;
+import com.example.orders.repository.OrderRepository;
+import com.example.orders.service.CartService;
+import com.example.orders.service.OrderService;
+import com.example.orders.utility.OrderMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

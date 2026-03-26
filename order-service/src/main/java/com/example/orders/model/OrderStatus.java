@@ -1,4 +1,4 @@
-package com.example.ecom.model;
+package com.example.orders.model;
 
 public enum OrderStatus {
     PENDING,CONFIRMED,SHIPPED,DELIVERED,CANCELLED

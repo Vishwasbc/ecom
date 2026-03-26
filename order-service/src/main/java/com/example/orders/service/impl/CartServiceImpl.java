@@ -1,9 +1,13 @@
-package com.example.ecom.service.impl;
+package com.example.orders.service.impl;
 
-import com.example.ecom.dto.CartItemRequest;
-import com.example.ecom.model.CartItem;
-import com.example.ecom.repository.CartItemRepository;
-import com.example.ecom.service.CartService;
+import com.example.orders.clients.ProductServiceClient;
+import com.example.orders.clients.UserServiceClient;
+import com.example.orders.dto.CartItemRequest;
+import com.example.orders.dto.ProductResponse;
+import com.example.orders.dto.UserResponse;
+import com.example.orders.model.CartItem;
+import com.example.orders.repository.CartItemRepository;
+import com.example.orders.service.CartService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +15,8 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
- 
+import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -20,11 +25,22 @@ import java.util.List;
 public class CartServiceImpl implements CartService {
 
     private final CartItemRepository cartItemRepository;
+    private final ProductServiceClient productServiceClient;
+    private final UserServiceClient userServiceClient;
 
     @Override
     public boolean addToCart(Long userId, CartItemRequest request) {
         log.info("Adding productId={} (qty={}) to cart for userId={}",
                 request.getProductId(), request.getQuantity(), userId);
+        ProductResponse product = productServiceClient.getProductDetails(request.getProductId().toString());
+        if(product == null)
+            return false;
+        if(product.getStockQuantity()<request.getQuantity())
+            return false;
+
+        UserResponse user =  userServiceClient.getUserDetails(userId);
+        if(user == null)
+            return false;
         CartItem existingCartItem = cartItemRepository.findByUserIdAndProductId(userId, request.getProductId());
 
         if (existingCartItem != null) {

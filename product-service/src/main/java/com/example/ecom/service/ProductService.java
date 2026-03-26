@@ -18,5 +18,5 @@ public interface ProductService {
 
     List<ProductResponse> searchProducts(String keyword);
 
-    ProductResponse getProductById(Long id);
+    Optional<ProductResponse> getProductById(Long id);
 }

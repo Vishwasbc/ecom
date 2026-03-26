@@ -1,7 +1,7 @@
-package com.example.ecom.service;
+package com.example.orders.service;
 
-import com.example.ecom.dto.CartItemRequest;
-import com.example.ecom.model.CartItem;
+import com.example.orders.dto.CartItemRequest;
+import com.example.orders.model.CartItem;
 
 import java.util.List;
 

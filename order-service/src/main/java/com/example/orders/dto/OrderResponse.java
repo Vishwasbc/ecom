@@ -1,6 +1,6 @@
-package com.example.ecom.dto;
+package com.example.orders.dto;
 
-import com.example.ecom.model.OrderStatus;
+import com.example.orders.model.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
